@@ -1,0 +1,156 @@
+\documentclass[10pt,a4paper,landscape]{article}
+\usepackage{multicol}
+\usepackage{calc}
+\usepackage{ifthen}
+\usepackage[landscape]{geometry}
+\usepackage{amsmath,amsthm,amsfonts,amssymb,mathtools}
+\usepackage{color,graphicx}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{underscore}
+\usepackage{todonotes}
+
+% Cheatsheet style
+\input{style.tex}
+
+% Shorthands
+\renewcommand{\bf}[1]{\ensuremath{\mathbf{#1}}}
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\balpha}{\boldsymbol\alpha}
+\newcommand{\bbeta}{\boldsymbol\beta}
+\newcommand{\bdelta}{\boldsymbol\delta}
+\newcommand{\btheta}{\boldsymbol\theta}
+\newcommand{\bPhi}{\boldsymbol\Phi}
+\newcommand{\code}{\mathcal{C}}
+\newcommand{\alphabet}{\mathcal{U}}
+
+\pdfinfo{
+  /Title (Machine Learning Cheat Sheet)
+  /Creator (TeX)
+  /Producer (pdfTeX 1.40.0)
+  /Author (Dennis Meier)
+  /Subject (Machine Learning cheatsheet)
+  /Keywords (machinelearning, ml, bayes, regression, classification)
+}
+
+% -----------------------------------------------------------------------
+
+\begin{document}
+\title{Information Theory Cheat Sheet}
+
+\raggedright
+\footnotesize
+\sffamily
+\begin{multicols*}{4}
+
+% multicol parameters
+% These lengths are set only within the two main columns
+%\setlength{\columnseprule}{0.25pt}
+\setlength{\premulticols}{1pt}
+\setlength{\postmulticols}{1pt}
+\setlength{\multicolsep}{1pt}
+\setlength{\columnsep}{2pt}
+
+\begin{center}
+\Large{\underline{Information Theory Cheat Sheet}}
+\end{center}
+
+% ----------
+\section{Source Coding}
+A source code $\code$ for a random variable $X$ is a mapping from the range of X to $D^*$, the set of finite-length strings of symbols from a D-ary alphabet.
+
+\begin{colfig}
+	\centering
+	\includegraphics[width=\linewidth]{code-classes.png}
+\end{colfig}
+
+\subsection{Kraft's inequality}
+$$\sum_{u \in \alphabet} 2^{-len(\code(u))} \leq 1$$
+
+$\code$ prefix free $\implies$ Kraft
+
+$\code$ uniquely decodable $\implies$ Kraft
+
+
+\section{Entropy and co.}
+\begin{colfig}
+\centering
+\includegraphics[width=\linewidth]{entropy-quantities-venn-diagram.png}
+\end{colfig}
+
+\subsection{Entropy}
+
+$H(U) = \sum_u - P(u) \log_2(P(u)) = E[- \ln(P(U))]$
+
+\subsubsection{Properties:}
+\begin{itemize}
+	\item $H(U) \leq \log | \alphabet |$ with equality if all elements in $\alphabet$ are equally probable.
+	\item $H(U) \geq 0$ always.
+	\item $H(U) \geq H(f(U))$
+\end{itemize}
+
+\subsection{Joint Entropy}
+$H(X,Y) = H(X) + H(Y | X) = H(Y) + H(X | Y)$
+
+\subsubsection{Properties:}
+\begin{itemize}
+	\item Joint increases entropy: $H(X, Y) \geq H(X)$
+	\item $H(X,Y) \leq H(X) + H(Y)$
+	\item Chain rule: $H(X, Y) = H(X) + H(Y | X)$
+	\item General chain rule: $H(X_1, X_2, ..., X_n) = \sum_{i=1}^n H(X_i | X_1, ..., X_{i-1})$
+\end{itemize}
+
+
+\subsection{Conditional Entropy}
+
+$H(U | V = v) = \sum_u - P(u | v) \log P(u | v)$
+
+$H(U | V) = \sum_v P(v) H(U | V = v)$
+
+$H(U | V) = H(U, V) - H(V)$
+
+
+\subsubsection{Properties:}
+\begin{itemize}
+	\item Conditioning reduces entropy: $H(U | V) \leq H(U)$
+	\item Chain rule: $H( U | V) = H(U,V) - H(V)$
+\end{itemize}
+
+
+Expected codeword length: $E[len(\code(U))] < H(U) + 1$
+
+\subsection{Mutual Information}
+\begin{align*}
+I(U; V) &= H(U) + H(V) - H(U,V)\\
+		&= H(U) - H(U | V)\\
+		&= H(V) - H(V | U)\\
+		&= H(U,V) - H(U | V) - H (V | U)
+\end{align*}
+
+\subsubsection{Properties:}
+\begin{itemize}
+	\item Nonnegative: $I(U;V) \geq 0$ with equality if $U, V$ ar independent.
+	\item Chain rule: $I(X,Y; Z) = I(X;Y) + I(Y; Z | X)$
+	\item $I(X,Y) \geq I(X, Z)$ if X, Y, Z are Markov.
+	\item Symmetric: $I(X;Y) = I(Y;X)$.
+\end{itemize}
+
+\section{Entropy Rate}
+Of a stochastic Process $\{X_i\}$ is
+
+$$H(X_i) = \lim_{n \rightarrow \infty} \frac{1}{n} H(X_1, X_2, ..., X_n)$$
+
+
+
+\section{Utilities}
+$\log(x) \leq 1 + x$
+
+$\lceil x \rceil < 1 + a$
+
+$E[Z] = \sum_{n=0}^{\infty} Pr[Z > n]$
+
+
+\end{multicols*}
+\end{document}
