@@ -63,6 +63,8 @@
 \section{Source Coding}
 A source code $\code$ for a random variable $X$ is a mapping from the range of X to $D^*$, the set of finite-length strings of symbols from a D-ary alphabet.
 
+Prefix-free codes can always be represented as leaves of a full tree.
+
 \begin{colfig}
 	\centering
 	\includegraphics[width=\linewidth]{code-classes.png}
@@ -189,6 +191,16 @@ $$p(x_1, x_2, ..., x_n) = 2^{-n(H(X) \pm \epsilon)}$$
 	\State {Add the new node to the queue.}
 \EndWhile
 \State {The remaining node is the root node and the tree is complete.}
+\end{algorithmic}
+
+\subsection{Lempel-Ziv coding}
+\begin{algorithmic}[1]
+	\State {Set $\mathcal D = \alphabet$}
+	\Loop
+		\State Associate to each $w \in \mathcal D$ a $\lceil \log | \mathcal D | \rceil$-bit binary representation, based on dictionary order.
+		\State Parse the next work $w$ from the source sequence using $\mathcal D$
+		\State Set $\mathcal D \gets \mathcal D \setminus \{w\} \cup \{ w u: u \in \alphabet \}$
+	\EndLoop
 \end{algorithmic}
 
 \subsection{Hamming Code}
