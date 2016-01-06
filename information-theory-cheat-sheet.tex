@@ -9,6 +9,8 @@
 \usepackage{listings}
 \usepackage{underscore}
 \usepackage{todonotes}
+\usepackage{algpseudocode}
+\usepackage{algorithm}
 
 % Cheatsheet style
 \input{style.tex}
@@ -167,6 +169,30 @@ $$p(x_1, x_2, ..., x_n) = 2^{-n(H(X) \pm \epsilon)}$$
 	\item The number of elements in $T_\epsilon$ is nearly $2^{nH}$
 \end{itemize}
 
+\section{Coding schemes}
+\subsection{Tunstall Coding}
+
+\begin{algorithmic}[1]
+\State {$D$ := tree of $|\mathcal{U}|$ leaves, one for each letter in $\mathcal{U}$.}
+\While{$|D| < C$}
+	\State {Convert most probable leaf to $|\mathcal{U}|$ sub-leaves.}
+\EndWhile
+\end{algorithmic}
+
+\subsection{Huffman Coding}
+
+\begin{algorithmic}[1]
+\State {Leaf node for each symbol in $\mathcal{U}$, add it to the priority queue.}
+\While {there is more than one node in the queue}:
+	\State {Remove the two nodes of highest priority (lowest probability) from the queue}
+	\State {Create a new internal node with these two nodes as children and with probability equal to the sum of the two nodes' probabilities.}
+	\State {Add the new node to the queue.}
+\EndWhile
+\State {The remaining node is the root node and the tree is complete.}
+\end{algorithmic}
+
+\subsection{Hamming Code}
+\todo{Fill and maybe move to linear codes}
 
 \section{Utilities}
 $\log(x) \leq 1 + x$
@@ -179,6 +205,9 @@ Jensen's inequality for convex functions $f$: $ E[f(X)] \geq f(E[X])$
 
 $a^b = 2^{ b \log a}$
 
+Law of large numbers: $\lim_{n \rightarrow \infty} \frac{1}{n} \sum_{i=1}^n X_i = E[X]$
+
+$f$ is concave if: $f((1-t)x+(t)y)\geq (1-t) f(x)+(t)f(y)$
 
 \end{multicols*}
 \end{document}
