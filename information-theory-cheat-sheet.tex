@@ -60,24 +60,6 @@
 \end{center}
 
 % ----------
-\section{Source Coding}
-A source code $\code$ for a random variable $X$ is a mapping from the range of X to $D^*$, the set of finite-length strings of symbols from a D-ary alphabet.
-
-Prefix-free codes can always be represented as leaves of a full tree.
-
-\begin{colfig}
-	\centering
-	\includegraphics[width=\linewidth]{code-classes.png}
-\end{colfig}
-
-\subsection{Kraft's inequality}
-$$\sum_{u \in \alphabet} 2^{-len(\code(u))} \leq 1$$
-
-$\code$ prefix free $\implies$ Kraft
-
-$\code$ uniquely decodable $\implies$ Kraft
-
-$l(u)$ fullfills Kraft $\implies$ $\exists \ \code$, prefix free with $len(\code(u)) = l(u)$
 
 
 \section{Entropy and co.}
@@ -123,9 +105,6 @@ $H(U | V) = \sum_v P(v) H(U | V = v)$
 	\item If $X_i$ is a stationary stochastic process: $H(X_n | X^{n-1}) \leq H(X_i | X^{i-1})$ with $i \in 1, ..., n$
 \end{itemize}
 
-
-Expected codeword length: $E[len(\code(U))] < H(U) + 1$
-
 \subsection{Mutual Information}
 \begin{align*}
 I(U; V) &= H(U) + H(V) - H(U,V)\\
@@ -150,6 +129,10 @@ $$ D(p || q) = \sum_x p(x) \log \frac{p(x)}{q(x)}$$
 Entropy rate of a stochastic Process $\{X_i\}$ is
 
 $$H(X_i) = \lim_{n \rightarrow \infty} \frac{1}{n} H(X_1, X_2, ..., X_n)$$
+
+If a process is stationary, then the entropy rate exists and is equal to:
+
+$$H(X_n | X_{n-1}, X_{n-2}, ..., X_1)$$
 
 \subsection{Asymptotic Equpartition Property}
 Information Theory's analog to the law of large numbers: If $X_1, X_2, ...$ are i.i.d. $\sim p(x)$, then
@@ -206,6 +189,40 @@ $$p(x_1, x_2, ..., x_n) = 2^{-n(H(X) \pm \epsilon)}$$
 \subsection{Hamming Code}
 \todo{Fill and maybe move to linear codes}
 
+\section{Source Coding}
+A source code $\code$ for a random variable $X$ is a mapping from the range of X to $D^*$, the set of finite-length strings of symbols from a D-ary alphabet.
+
+Expected length of a source code C(x) for a random variable X with probability mass function p(x) is given by:
+$$L(C) = \sum_{x \in \alphabet} p(x) l(x) \geq H(X)$$
+with equality only if $D^{-l_i} = p_i$.
+
+Expected codeword length: $E[len(\code(U))] < H(U) + 1$
+
+Prefix-free codes can always be represented as leaves of a full tree.
+
+\begin{colfig}
+	\centering
+	\includegraphics[width=\linewidth]{code-classes.png}
+\end{colfig}
+
+\subsection{Kraft's inequality}
+$$\sum_{u \in \alphabet} 2^{-len(\code(u))} \leq 1$$
+
+$\code$ prefix free $\implies$ Kraft
+
+$\code$ uniquely decodable $\implies$ Kraft
+
+$l(u)$ fullfills Kraft $\implies$ $\exists \ \code$, prefix free with $len(\code(u)) = l(u)$
+
+\subsection{Finite state machine}
+A set of states $S$, a starting state, some state transfer function $g: S \times \alphabet \rightarrow S$ and some output function $f: S \times \alphabet \rightarrow \{0,1\}^*$
+
+Letigimate FSM needs to be information lossless, i.e. $\forall s \in S$ $\forall u_1, ..., u_m \neq v_1, ..., v_m: g(s, \vec u) = g(s, \vec v) \implies f(s, \vec u) \neq f(s, \vec v)$
+
+For a $L$-state finite state machine the compressibility is $\rho_M \geq 1/L$
+
+A lempel-ziv procedure does at least as well as the best finite state machine there exists for a given sequence: $\rho_{LZ}(\vec x) \leq \rho_{FSM}(\vec x)$.
+
 \section{Utilities}
 $\log(x) \leq 1 + x$
 
@@ -220,6 +237,8 @@ $a^b = 2^{ b \log a}$
 Law of large numbers: $\lim_{n \rightarrow \infty} \frac{1}{n} \sum_{i=1}^n X_i = E[X]$
 
 $f$ is concave if: $f((1-t)x+(t)y)\geq (1-t) f(x)+(t)f(y)$
+
+If a $K$-ary tree has $\alpha$ intermediate nodes, the tree has $1+(K-1)\alpha$ leaves.
 
 \end{multicols*}
 \end{document}
