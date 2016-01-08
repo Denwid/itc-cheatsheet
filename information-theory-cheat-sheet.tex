@@ -106,6 +106,9 @@ $H(U | V) = \sum_v P(v) H(U | V = v)$
 	\item If $X_i$ is a stationary stochastic process: $H(X_n | X^{n-1}) \leq H(X_i | X^{i-1})$ with $i \in 1, ..., n$
 \end{itemize}
 
+\subsubsection{Fano's Inequality}
+Suppose $U,V$ are random variables with the same alphabet. Let $p=Pr(U \neq V)$. Then $ H(U|V) \leq h_2(p) + p\log (|\mathcal{U}|-1)$ where $h_2(p) = p\log \frac{1}{p} + (1-p)\log\frac{1}{1-p}$
+
 \subsection{Mutual Information}
 \begin{align*}
 I(U; V) &= H(U) + H(V) - H(U,V)\\
@@ -230,6 +233,14 @@ For a $L$-state finite state machine the compressibility is $\rho_M \geq 1/L$
 A lempel-ziv procedure does at least as well as the best finite state machine there exists for a given sequence: $\rho_{LZ}(\vec x) \leq \rho_{FSM}(\vec x)$.
 
 \section{Channel Coding}
+\subsection{Discrete Memoryless Channels}
+memoryless: $P(y|x, x_1^{i-1}, y_1^{i-1}) = p(y|x)$
+
+without feedback if $P(x_i|x_1^{i-1},y_1^{i-1}) = P(x_i|x_1^{i-1})$
+
+memoryless without feedback: $$P(y_1^n | x_1^n) = \prod_{i=1}^n p(y_i|x_i)$$
+$$I(X_1^n;Y_1^n) \leq \sum_{i=1}^n I(X_i;Y_i) \leq nC$$
+
 \subsection{Channel Capacity}
 Information channel capacity of a discrete memoryless channel:
 $$C = \max_{p(x)} I(X; Y)$$
@@ -257,6 +268,23 @@ $C = 1 - H(p)$ because:
 	\includegraphics[width=0.6\linewidth]{binary-symmetric-channel.png}
 \end{colfig}
 
+\section{Transmission}
+\begin{colfig}
+ \centering
+ \includegraphics[width=\linewidth]{comm-setup.png}
+\end{colfig}
+
+Source produces a letter each $\tau_S$ sec and channel accepts input symbols every $\tau_C$ sec: $\tau_S L = \tau_C n$
+
+Suppose $U_1U_2..$ is a stationary source with Entropy Rate $\mathcal{H}$, and we have the setup above, then $\frac{1}{L} H(U_1..U_L|V_1..V_L) \geq \mathcal{H} - \frac{n}{L}C = \tau_S\left(\frac{\mathcal{H}}{\tau_S}-\frac{C}{\tau_C}\right)$
+
+No matter how encoder and decoder are designed:
+$$ h_2(\bar{P_e}) + \bar{P_e}\log(|\mathcal{U}|-1) \geq \tau_S \left(\frac{\mathcal{H}}{\tau_S}-\frac{C}{\tau_C}\right)$$ with $\bar{P_e} = \frac{1}{L} \sum_{i=1}^L P(U_i \neq V_i)$
+
+Bad news: if $\frac{\mathcal{H}}{\tau_S} > \frac{C}{\tau_C}$ then $\bar{P_e}$ not arbitrary small
+
+Good news: if $\frac{\mathcal{H}}{\tau_S} < \frac{C}{\tau_C}$ can achieve $\bar{P_e} \rightarrow 0$
+
 
 
 \section{Utilities}
@@ -276,7 +304,11 @@ $f$ is concave if: $f((1-t)x+(t)y)\geq (1-t) f(x)+(t)f(y)$
 
 If a $K$-ary tree has $\alpha$ intermediate nodes, the tree has $1+(K-1)\alpha$ leaves.
 
+
 $\max(f(t) + g(t)) \leq \max(f(t)) + \max(g(t))$
+
+
+$h_2 \left(\frac{1}{L}\sum_{i=1}^L p_i \right) \geq \frac{1}{L} \sum_{i=1}^L h_2(p_i)$
 
 \end{multicols*}
 \end{document}
