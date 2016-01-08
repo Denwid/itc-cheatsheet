@@ -144,9 +144,13 @@ Or alternatively,
 $$ p(X_1, X_2, ..., X_n) \rightarrow 2^{-n H}$$
 
 \subsection{Typcial Set}
-The typical set $T_\epsilon$ is the set of sequences $(x_1, x_2, ..., x_n) \in \alphabet^n$ such that:
+The typical set $T_\epsilon$ is the set of sequences $(x_1, x_2, ..., x_n) \in \alphabet^n$ with empirical entropies $\epsilon$-close to the true entropy of $X$:
 
-$$p(x_1, x_2, ..., x_n) = 2^{-n(H(X) \pm \epsilon)}$$
+\begin{align*}
+	&p(x_1, x_2, ..., x_n) = 2^{-n(H(X) \pm \epsilon)}\\
+	\Leftrightarrow & - \frac{1}{n} \log p(x^n) = H(X) \pm \epsilon\\
+	\Leftrightarrow &\left | - \frac{1}{n} \log p(x^n) - H(X) \right | < \epsilon
+\end{align*}
 
 \subsubsection{Properties of the typical set:}
 \begin{itemize}
@@ -225,8 +229,17 @@ For a $L$-state finite state machine the compressibility is $\rho_M \geq 1/L$
 A lempel-ziv procedure does at least as well as the best finite state machine there exists for a given sequence: $\rho_{LZ}(\vec x) \leq \rho_{FSM}(\vec x)$.
 
 \section{Channel Coding}
+\subsection{Channel Capacity}
 Information channel capacity of a discrete memoryless channel:
 $$C = \max_{p(x)} I(X; Y)$$
+
+Feedback does not increase the capacity. Tinkering with the channel by using functions on it does not increase the capacity, either. However, channels with memory can have higher capacity than without memory.
+
+\subsubsection{Properties}
+\begin{enumerate}
+	\item Positive: $C \geq 0$ since $I(X; Y) \geq 0$
+	\item $C \leq \log | \mathcal{X} |$ since $C = \max I(X; Y) \leq \max H(X) =  \log | \mathcal{X} |$ and similar for Y.
+\end{enumerate}
 
 \section{Example Channels}
 \subsection{Binary Symmetric channel}
