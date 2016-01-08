@@ -121,6 +121,7 @@ I(U; V) &= H(U) + H(V) - H(U,V)\\
 	\item General chain rule for mutual Information: $I(X_1, ..., X_n; Y) = \sum_{i=1}^n I(X_i; Y | X_1, ..., X_{i-1})$
 	\item Data processing inequality: $I(X,Y) \geq I(X, Z)$ if X, Y, Z form a markov-chain.
 	\item Symmetric: $I(X;Y) = I(Y;X)$.
+	\item Conditional Mutual Information: $I(X;Y | Z) = \sum_z p(z) I(X;Y | Z=z)$
 \end{itemize}
 
 \subsection{Cross-Entropy}
@@ -274,6 +275,8 @@ Law of large numbers: $\lim_{n \rightarrow \infty} \frac{1}{n} \sum_{i=1}^n X_i 
 $f$ is concave if: $f((1-t)x+(t)y)\geq (1-t) f(x)+(t)f(y)$
 
 If a $K$-ary tree has $\alpha$ intermediate nodes, the tree has $1+(K-1)\alpha$ leaves.
+
+$\max(f(t) + g(t)) \leq \max(f(t)) + \max(g(t))$
 
 \end{multicols*}
 \end{document}
