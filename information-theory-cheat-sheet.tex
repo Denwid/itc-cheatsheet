@@ -344,6 +344,22 @@ $$h(X) = -\int_\mathbb{X} f(x)\log f(x)\,dx$$
 	\item Entropy of X (on $[0, a]$) is bounded by $h(X) \leq \log a$, with equality if $X$ is Uniform.
 \end{itemize}
 
+\section{Gaussian Channel}
+$Y_i = X_i + Z_i$ with $Z_i \sim \mathcal{N}(0, \sigma^2)$ and cost constraint $\frac{1}{n}\sum_{i=1}^{n} x_i^2 \leq P$ gives Capacity:
+$$C = \frac{1}{2} \log(1 + P/\sigma^2)$$
+Which is attained with $X \sim \mathcal{N}(0, P)$
+
+\subsection{Sphere packing}
+Any received vector is normally distributed around the sent codeword and therefore within a sphere of radius $\sqrt{n (\sigma^2 + \epsilon)}$  around that codeword with high probability. $\rightarrow$ small sphere.
+
+In general, received vectors can not exceed a magnitude of $\sqrt{n(P + \sigma^2)}$. $\rightarrow$ big sphere. By calculating how many small spheres can fit into a big sphere maximally, we can get an upper bound on how many codewords can be distinguished on the receiver side without overlap.
+$$ M \approx \sqrt{\frac{n(P + \sigma^2)}{n \sigma^2}}^n = \sqrt{2 \log (1 + P/\sigma^2)}^n$$
+This matches $R = \frac{\log M}{n} \leq C$
+
+
+\subsection{Water-filling (k-parallel Gaussian Channels)}
+
+
 \section{Linear Codes}
 \subsection{Binary}
 A code $\mathcal{C}$ is linear if $x,y \in \mathcal{C}$ then $x+y \in \mathcal{C}$, + being the componentwise modulo 2 addition. We have $|\mathcal{C}| = 2^k$ for some $k$.
