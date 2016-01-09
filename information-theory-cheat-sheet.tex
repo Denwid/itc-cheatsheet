@@ -331,7 +331,8 @@ $$h(X) = -\int_\mathbb{X} f(x)\log f(x)\,dx$$
 	\item Scalable: $h(aX) = h(X) + log|a|$
 	\item Conditioning reduces Entropy: $h(X|Y) \leq h(X)$ with equality iff $X$ and $Y$ are independent.
 	\item Can be negative, unlike discrete entropy.
-	\item Entropy of X (on $\mathbb{R}$ with zero mean and variance $\sigma$) is upper bounded by: $h(X) \leq \frac{1}{2} \log ( 2\pi e \sigma^2)$, with equality if $X$ is a Gaussian.
+	\item Entropy of X (on $\mathbb{R}$ with zero mean and variance $\sigma^2$) is upper bounded by: $h(X) \leq \frac{1}{2} \log ( 2\pi e \sigma^2)$, with equality if $X$ is a Gaussian.
+	\item Entropy of X (on $[0, \infty]$ with mean $\lambda$) is upper bounded by $h(X) \leq \ln(\lambda) + 1$ with equality if X is exponentially distributed $p(X) = \frac{1}{\lambda} e^{-x/\lambda}$
 	\item Entropy of X (on $[0, a]$) is bounded by $h(X) \leq \log a$, with equality if $X$ is Uniform.
 \end{itemize}
 
