@@ -341,9 +341,11 @@ $$h(X) = -\int_\mathbb{X} f(x)\log f(x)\,dx$$
 
 \section{Linear Codes}
 \subsection{Binary}
-A code $\mathcal{C}$ is linear if $x,y \in \mathcal{C}$ then $x+y \in \mathcal{C}$, + being the componentwise modulo 2 addition.
+A code $\mathcal{C}$ is linear if $x,y \in \mathcal{C}$ then $x+y \in \mathcal{C}$, + being the componentwise modulo 2 addition. We have $|\mathcal{C}| = 2^k$ for some $k$.
 
-\textbf{Parity-check} matrix: If $\mathcal{C}$ is a linear code with $|\mathcal{C}| = 2^k$, then there exists a $n \times k$ matrix $H$ s.t. $\mathcal{C} = \{\bar{x}: \bar{x}H = \bar{0}\}$.
+\textbf{Generator}: a $k \times n$ binary matrix $G$ s.t. $\mathcal{C} = \{[x_1..x_n] = [u_1..u_k]G: (u_1..u_k) \in \{0,1\}^k\}$
+
+\textbf{Parity-check}: a $n \times k$ binary matrix $H$ s.t. $\mathcal{C} = \{\bar{x}: \bar{x}H = \bar{0}\}$.
 
 Distance: $$d_{min}(\mathcal{C}) = \omega_{min}(\mathcal{C}) = \min_{\bar{x}\in\mathcal{C}, \bar{x}\neq 0} \omega_H (\bar{x})$$
 
@@ -357,7 +359,7 @@ Linear code $\mathcal{C} \subset \mathbb{F}^n$ with $|\mathcal{C}| = |\mathbb{F}
  $\mathcal{C} = \{(x_1,..,x_n) = \left( u(\alpha_1),..,u(\alpha_n)\right) : (u_0 ... u_{k-1}) \in \mathbb{F}^k\}$ with $u(D) = u_0 + u_1D + .. + u_{k-1}D^{k-1}$
 \end{itemize}
 
-Distance: $d_{min} = n-(k-1)$
+Distance: $d_{min} \geq n-(k-1)$
 
 
 
