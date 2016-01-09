@@ -311,7 +311,9 @@ $C = 1 - H(p)$ because:
 $C = 1 - \alpha$
 
 \subsection{Arbitrary symmetric channel}
+A channel is said to be \emph{weakly symmetric} if every row of the transition matrix $p(\cdot | x)$ is a permutation of every other row and all the column sums $\sum_x (y|x)$ are equal. For weakly symmetric channels:
 $C = \log | \mathcal{Y} | - H(\text{row of transition matrix})$
+and this is achieved by a uniform distribution on the input alphabet.
 
 \section{Differential Entropy}
 $$h(X) = -\int_\mathbb{X} f(x)\log f(x)\,dx$$
@@ -332,7 +334,8 @@ $$h(X) = -\int_\mathbb{X} f(x)\log f(x)\,dx$$
 	\item Scalable: $h(aX) = h(X) + log|a|$
 	\item Conditioning reduces Entropy: $h(X|Y) \leq h(X)$ with equality iff $X$ and $Y$ are independent.
 	\item Can be negative, unlike discrete entropy.
-	\item Entropy of X (on $\mathbb{R}$ with zero mean and variance $\sigma$) is upper bounded by: $h(X) \leq \frac{1}{2} \log ( 2\pi e \sigma^2)$, with equality if $X$ is a Gaussian.
+	\item Entropy of X (on $\mathbb{R}$ with zero mean and variance $\sigma^2$) is upper bounded by: $h(X) \leq \frac{1}{2} \log ( 2\pi e \sigma^2)$, with equality if $X$ is a Gaussian.
+	\item Entropy of X (on $[0, \infty]$ with mean $\lambda$) is upper bounded by $h(X) \leq \ln(\lambda) + 1$ with equality if X is exponentially distributed $p(X) = \frac{1}{\lambda} e^{-x/\lambda}$
 	\item Entropy of X (on $[0, a]$) is bounded by $h(X) \leq \log a$, with equality if $X$ is Uniform.
 \end{itemize}
 
@@ -381,6 +384,8 @@ $\max(f(t) + g(t)) \leq \max(f(t)) + \max(g(t))$
 $h_2 \left(\frac{1}{L}\sum_{i=1}^L p_i \right) \geq \frac{1}{L} \sum_{i=1}^L h_2(p_i)$
 
 Normal distribution: $f(x \; | \; \mu, \sigma) = \frac{1}{\sigma\sqrt{2\pi} } \; e^{ -\frac{(x-\mu)^2}{2\sigma^2} }$
+
+Integration by parts: $\int u(x) v'(x) \, dx = u(x) v(x) - \int v(x) \, u'(x)  dx$ 
 
 \subsection{Convexity}
 
