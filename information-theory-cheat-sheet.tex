@@ -308,7 +308,9 @@ $C = 1 - H(p)$ because:
 $C = 1 - \alpha$
 
 \subsection{Arbitrary symmetric channel}
+A channel is said to be \emph{weakly symmetric} if every row of the transition matrix $p(\cdot | x)$ is a permutation of every other row and all the column sums $\sum_x (y|x)$ are equal. For weakly symmetric channels:
 $C = \log | \mathcal{Y} | - H(\text{row of transition matrix})$
+and this is achieved by a uniform distribution on the input alphabet.
 
 \section{Differential Entropy}
 $$h(X) = -\int_\mathbb{X} f(x)\log f(x)\,dx$$
