@@ -132,7 +132,7 @@ I(X;Y|Z) 	&= I(X;Y,Z) - I(X;Z)\\
 			&= H(X,Z) + H(Y,Z) - H(X,Y,Z) - H(Z)\\
 			&= H(X|Z) - H(X|Y,Z)
 \end{align*}
-
+%TODO: When can $I(X;Y|Z)$ be decomposed into a sum? If $p(x,y,z) = p(z) \cdot p(x,y | z)$?}
 \subsection{Cross-Entropy}
 $$ D(p || q) = \sum_x p(x) \log \frac{p(x)}{q(x)}$$
 
@@ -259,6 +259,8 @@ Feedback does not increase the capacity for a discrete memoryless channel. Tinke
 	\item $C \leq \log | \mathcal{X} |$ since $C = \max I(X; Y) \leq \max H(X) =  \log | \mathcal{X} |$ and similar for Y.
 \end{enumerate}
 
+The capacity subject to a cost constraint $\beta$ and a cost function $b(x)$ changes the definition to $C = \max_{p(x): E[b(X)] < \beta} I(X; Y)$
+
 \subsection{Transmission}
 \begin{colfig}
 	\centering
@@ -277,6 +279,9 @@ Bad news: if $\frac{\mathcal{H}}{\tau_S} > \frac{C}{\tau_C}$ then $\bar{P_e}$ no
 Good news: if $\frac{\mathcal{H}}{\tau_S} < \frac{C}{\tau_C}$ can achieve $\bar{P_e} \rightarrow 0$
 
 \subsection{Channel Coding Theorem}
+$M$ is the number of different messages we can send over the channel.
+$R = \frac{\log M}{n}$ is the rate of the channel code, i.e. how many message bits are encoded per channel bit sent.
+
 For a discrete memoryless channel, all rates below capacity $C$ are achievable. Specifically, for every rate $R < C$ there exists a sequence of $(2^{nR}, n)$ codes with maximum probability of error $\rightarrow 0$.
 
 Conversely, any sequence of $(2^{nR}, n)$ codes with a maximum error probability going to zero must have $R \leq C$.
