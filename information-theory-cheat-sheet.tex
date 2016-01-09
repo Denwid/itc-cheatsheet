@@ -290,25 +290,30 @@ Conversely, any sequence of $(2^{nR}, n)$ codes with a maximum error probability
 \subsection{Source-channel theorem}
 A stochastic process with entropy rate H cannot be sent reliably over a discrete memoryless channel if $H > C$. Conversely, if the process satisfies the asymptotic equipartition property (APP), the source can be transmitted reliably if H < C.
 
+\subsection{Singleton bound}
+If number of codewords $M > 2^k$ then $$d_{min} = \min_{1\leq i \leq M, 1 \leq j \leq M, i \neq j} d_H(x^{(i)}, x^{(j)}) \leq n-k$$
+
 \section{Example Channels}
 \subsection{Binary Symmetric channel}
 $C = 1 - H(p)$ because:
-\begin{align}
+\begin{align*}
 	I(X; Y) &= H(Y) - H(Y | X)\\
 			&= H(Y) - \sum p(x) H(Y| X = x)\\
 			&= H(Y) - \sum p(x) H(p)\\
 			&= H(Y) - H(p)\\
 			&\leq 1 - H(p).
-\end{align}
+\end{align*}
 \begin{colfig}
 	\centering
 	\includegraphics[width=0.6\linewidth]{binary-symmetric-channel.png}
 \end{colfig}
 
-\textbf{Singleton Bound:} if nb of codewords $M > 2^k$ then $$d_{min} = \min_{1\leq i \leq M, 1 \leq j \leq M, i \neq j} d_H(x^{(i)}, x^{(j)}) \leq n-k$$
-
 \subsection{Binary erasure channel}
 $C = 1 - \alpha$
+\begin{colfig}
+	\centering
+	\includegraphics[width=0.6\linewidth]{binary-erasure-channel.png}
+\end{colfig}
 
 \subsection{Arbitrary symmetric channel}
 A channel is said to be \emph{weakly symmetric} if every row of the transition matrix $p(\cdot | x)$ is a permutation of every other row and all the column sums $\sum_x (y|x)$ are equal. For weakly symmetric channels:
