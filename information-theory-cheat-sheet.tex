@@ -130,9 +130,9 @@ I(U; V) &= H(U) + H(V) - H(U,V)\\
 \begin{align*}
 I(X;Y|Z) 	&= I(X;Y,Z) - I(X;Z)\\
 			&= H(X,Z) + H(Y,Z) - H(X,Y,Z) - H(Z)\\
-			&= H(X|Z) - H(X|Y,Z)
+			&= H(X|Z) - H(X|Y,Z)\\
+			&= \sum_z p(z) I(X;Y|Z=z)
 \end{align*}
-%TODO: When can $I(X;Y|Z)$ be decomposed into a sum? If $p(x,y,z) = p(z) \cdot p(x,y | z)$?}
 \subsection{Cross-Entropy}
 $$ D(p || q) = \sum_x p(x) \log \frac{p(x)}{q(x)}$$
 
