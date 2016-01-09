@@ -124,6 +124,7 @@ I(U; V) &= H(U) + H(V) - H(U,V)\\
 	\item General chain rule for mutual Information: $I(X_1, ..., X_n; Y) = \sum_{i=1}^n I(X_i; Y | X_1, ..., X_{i-1})$
 	\item Data processing inequality: $I(X,Y) \geq I(X, Z)$ if X, Y, Z form a markov-chain.
 	\item Symmetric: $I(X;Y) = I(Y;X)$.
+	\item Is concave.
 \end{itemize}
 
 \subsection{Conditional Mutual Information}
@@ -304,6 +305,8 @@ $C = 1 - H(p)$ because:
 	\includegraphics[width=0.6\linewidth]{binary-symmetric-channel.png}
 \end{colfig}
 
+\textbf{Singleton Bound:} if nb of codewords $M > 2^k$ then $$d_{min} = \min_{1\leq i \leq M, 1 \leq j \leq M, i \neq j} d_H(x^{(i)}, x^{(j)}) \leq n-k$$
+
 \subsection{Binary erasure channel}
 $C = 1 - \alpha$
 
@@ -333,6 +336,25 @@ $$h(X) = -\int_\mathbb{X} f(x)\log f(x)\,dx$$
 	\item Entropy of X (on $[0, a]$) is bounded by $h(X) \leq \log a$, with equality if $X$ is Uniform.
 \end{itemize}
 
+\section{Linear Codes}
+\subsection{Binary}
+A code $\mathcal{C}$ is linear if $x,y \in \mathcal{C}$ then $x+y \in \mathcal{C}$, + being the componentwise modulo 2 addition.
+
+\textbf{Parity-check} matrix: If $\mathcal{C}$ is a linear code with $|\mathcal{C}| = 2^k$, then there exists a $n \times k$ matrix $H$ s.t. $\mathcal{C} = \{\bar{x}: \bar{x}H = \bar{0}\}$.
+
+Distance: $$d_{min}(\mathcal{C}) = \omega_{min}(\mathcal{C}) = \min_{\bar{x}\in\mathcal{C}, \bar{x}\neq 0} \omega_H (\bar{x})$$
+
+\subsection{General $\mathbb{F}$}
+$\mathcal{C} \subseteq \mathbb{F}^n$ is linear if $\forall x,x' \in \mathcal{C}, a,a' \in \mathbb{F}$, $a \cdot x + a' \cdot x' \in \mathcal{C}$, $\cdot$ and $+$ in $\mathbb{F}$
+
+\subsection{Reed-Solomon Codes}
+Linear code $\mathcal{C} \subset \mathbb{F}^n$ with $|\mathcal{C}| = |\mathbb{F}|^k$ given $n \leq |\mathbb{F}|$ and $k \leq n$:
+\begin{itemize}
+ \item pick $\alpha_1 \in \mathbb{F}, .., \alpha_n \in \mathbb{F}$ s.t. $\alpha_i \neq \alpha_j$ for $i \neq j$:
+ $\mathcal{C} = \{(x_1,..,x_n) = \left( u(\alpha_1),..,u(\alpha_n)\right) : (u_0 ... u_{k-1}) \in \mathbb{F}^k\}$ with $u(D) = u_0 + u_1D + .. + u_{k-1}D^{k-1}$
+\end{itemize}
+
+Distance: $d_{min} = n-(k-1)$
 
 
 
@@ -344,7 +366,7 @@ $\lceil x \rceil < 1 + a$
 
 $E[Z] = \sum_{n=0}^{\infty} Pr[Z > n]$
 
-Jensen's inequality for convex functions $f$: $ E[f(X)] \geq f(E[X])$
+Jensen's inequality for convex functions $f$: $ E[f(X)] \geq f(E[X])$ ($\leq$ for concave)
 
 $a^b = 2^{ b \log a}$
 
@@ -370,5 +392,18 @@ Then $\sum_{i=1}^n c_i f_i(x_i)$ is convex.
 $f(x) = \sup_{i \in I} f_i(x)$ is convex.
 
 $g(x) = h \circ f$ is convex if $f(x)$ is bounded and convex and $h(x)$ is increasing and convex.
+
+
+\subsection{Hamming distance}
+Given $\bar{x}, \bar{y}, \bar{z} \in \{0,1\}^n$:
+\begin{itemize}
+ \item $d_H(\bar{x},\bar{y}) = \#\{i:y_i \neq x_i\}$
+ \item $d_H(\bar{x},\bar{y}) \geq 0$ with equality iff $\bar{x} = \bar{y}$
+ \item $d_H(\bar{x},\bar{y}) = d_H(\bar{y},\bar{x})$
+ \item $d_H(\bar{x},\bar{z}) \leq d_H(\bar{x},\bar{y}) + d_H(\bar{y},\bar{z})$
+\end{itemize}
+Hamming weight: $\omega_H(\bar{x}) = \#\{i: x_i \neq 0\}$
+
 \end{multicols*}
 \end{document}
+
