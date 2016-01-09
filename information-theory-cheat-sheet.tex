@@ -352,7 +352,7 @@ A code $\mathcal{C}$ is linear if $x,y \in \mathcal{C}$ then $x+y \in \mathcal{C
 
 \textbf{Parity-check}: a $n \times k$ binary matrix $H$ s.t. $\mathcal{C} = \{\bar{x}: \bar{x}H = \bar{0}\}$.
 
-Distance: $$d_{min}(\mathcal{C}) = \omega_{min}(\mathcal{C}) = \min_{\bar{x}\in\mathcal{C}, \bar{x}\neq 0} \omega_H (\bar{x})$$
+Distance: $$d_{min}(\mathcal{C}) = w_{min}(\mathcal{C}) = \min_{\bar{x}\in\mathcal{C}, \bar{x}\neq 0} w_H (\bar{x})$$
 
 \subsection{General $\mathbb{F}$}
 $\mathcal{C} \subseteq \mathbb{F}^n$ is linear if $\forall x,x' \in \mathcal{C}, a,a' \in \mathbb{F}$, $a \cdot x + a' \cdot x' \in \mathcal{C}$, $\cdot$ and $+$ in $\mathbb{F}$
@@ -414,7 +414,7 @@ Given $\bar{x}, \bar{y}, \bar{z} \in \{0,1\}^n$:
  \item $d_H(\bar{x},\bar{y}) = d_H(\bar{y},\bar{x})$
  \item $d_H(\bar{x},\bar{z}) \leq d_H(\bar{x},\bar{y}) + d_H(\bar{y},\bar{z})$
 \end{itemize}
-Hamming weight: $\omega_H(\bar{x}) = \#\{i: x_i \neq 0\}$
+Hamming weight: $w_H(\bar{x}) = \#\{i: x_i \neq 0\}$
 
 \end{multicols*}
 \end{document}
