@@ -114,15 +114,16 @@ Suppose $U,V$ are random variables with the same alphabet. Let $p=Pr(U \neq V)$.
 I(U; V) &= H(U) + H(V) - H(U,V)\\
 		&= H(U) - H(U | V)\\
 		&= H(V) - H(V | U)\\
-		&= H(U,V) - H(U | V) - H (V | U)
+		&= H(U,V) - H(U | V) - H (V | U)\\
+		&= D(p_{UV} || p_Up_V)
 \end{align*}
 
 \subsubsection{Properties:}
 \begin{itemize}
-	\item Nonnegative: $I(U;V) \geq 0$ with equality if $U, V$ ar independent.
+	\item Nonnegative: $I(U;V) \geq 0$ with equality if $U, V$ are independent.
 	\item Chain rule: $I(X; Y, Z) = I(X;Z) + I(X; Y | Z)$
 	\item General chain rule for mutual Information: $I(X_1, ..., X_n; Y) = \sum_{i=1}^n I(X_i; Y | X_1, ..., X_{i-1})$
-	\item Data processing inequality: $I(X,Y) \geq I(X, Z)$ if X, Y, Z form a markov-chain.
+	\item \textbf{Data processing} inequality: $I(X,Y) \geq I(X, Z)$ if X, Y, Z form a markov-chain.
 	\item Symmetric: $I(X;Y) = I(Y;X)$.
 	\item Is concave.
 \end{itemize}
@@ -318,7 +319,21 @@ $C = \log | \mathcal{Y} | - H(\text{row of transition matrix})$
 and this is achieved by a uniform distribution on the input alphabet.
 
 \section{Differential Entropy}
-$$h(X) = -\int_\mathbb{X} f(x)\log f(x)\,dx$$
+\begin{align*}
+h(X) 	& = -\int_\mathbb{X} f(x)\log f(x)\,dx \\
+		& = E[-\log f(X)] 
+\end{align*}
+\begin{align*}
+D(f||g) & = \int_\mathbb{X} f(x) \log \frac{f(x)}{g(x)} \, dx \\
+	& = E_f[\log \frac{f(X)}{g(X)}]
+\end{align*}
+\begin{align*}
+I(X;Y) 	 & = h(X) - h(X|Y)\\
+		& = h(Y) - h(Y|X)\\
+		& = \int_\mathbb{X} \int_\mathbb{Y} f(x,y) \log \frac{f(y|x)}{f(y)}\,dx\,dy \\
+		& = D(f_{XY} || f_Xf_Y)
+\end{align*}
+
 
 \subsection{Examples}
 \begin{itemize}
@@ -336,10 +351,19 @@ $$h(X) = -\int_\mathbb{X} f(x)\log f(x)\,dx$$
 	\item Scalable: $h(aX) = h(X) + log|a|$
 	\item Conditioning reduces Entropy: $h(X|Y) \leq h(X)$ with equality iff $X$ and $Y$ are independent.
 	\item Can be negative, unlike discrete entropy.
-	\item Entropy of X (on $\mathbb{R}$ with zero mean and variance $\sigma^2$) is upper bounded by: $h(X) \leq \frac{1}{2} \log ( 2\pi e \sigma^2)$, with equality if $X$ is a Gaussian.
-	\item Entropy of X (on $[0, \infty]$ with mean $\lambda$) is upper bounded by $h(X) \leq \ln(\lambda) + 1$ with equality if X is exponentially distributed $p(X) = \frac{1}{\lambda} e^{-x/\lambda}$
-	\item Entropy of X (on $[0, a]$) is bounded by $h(X) \leq \log a$, with equality if $X$ is Uniform.
+	\item Divergence and mutual information are non-negative.
+	\item Entropy of $X$ (on $\mathbb{R}$ with zero mean and variance $\sigma^2$) is upper bounded by: $h(X) \leq \frac{1}{2} \log ( 2\pi e \sigma^2)$, with equality if $X$ is a Gaussian.
+	\item Entropy of $X$ (on $[0, \infty]$ with mean $\lambda$) is upper bounded by $h(X) \leq \ln(\lambda) + 1$ with equality if X is exponentially distributed $p(X) = \frac{1}{\lambda} e^{-x/\lambda}$
+	\item Entropy of $X$ (on $[0, a]$) is bounded by $h(X) \leq \log a$, with equality if $X$ is Uniform.
 \end{itemize}
+
+\subsubsection{Vector extensions}
+\begin{itemize}
+	\item Entropy of $\boldsymbol X$ (on $\mathbb{R}^d$ with zero mean and $Cov(\boldsymbol X) = K$) is upper bounded by: $h(\boldsymbol X) \leq \frac{1}{2} \log \det (2\pi eK)$, with equality if $\boldsymbol X$ is jointly Gaussian.
+	\item $h(A\boldsymbol X) = h(\boldsymbol X) + \log|\det A|$
+	\item $h(\boldsymbol X + \boldsymbol c) = h(\boldsymbol X)$
+\end{itemize}
+
 
 \section{Gaussian Channel}
 $Y_i = X_i + Z_i$ with $Z_i \sim \mathcal{N}(0, \sigma^2)$ and cost constraint $\frac{1}{n}\sum_{i=1}^{n} x_i^2 \leq P$ gives Capacity:
@@ -364,7 +388,7 @@ For binary codes with $q=2$, the index is sometimes dropped.
 For maximum distance separable codes, the distance is always $d=n-k+1$.
 
 \subsection{Binary}
-A code $\mathcal{C}$ is linear if $x,y \in \mathcal{C}$ then $x+y \in \mathcal{C}$, + being the componentwise modulo 2 addition. The size of the codebook is always a power of two: $|\mathcal{C}| = 2^k$
+A code $\mathcal{C}$ is linear if $x,y \in \mathcal{C}$ then $x\oplus y \in \mathcal{C}$. The size of the codebook is always a power of two: $|\mathcal{C}| = 2^k$
 
 \textbf{Generator}: a $k \times n$ binary matrix $G$ s.t. $\mathcal{C} = \{[x_1..x_n] = [u_1..u_k]G: (u_1..u_k) \in \{0,1\}^k\}$.
 $G = [I_k | - A^T]$
