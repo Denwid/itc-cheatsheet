@@ -11,7 +11,6 @@
 \usepackage{todonotes}
 \usepackage{algpseudocode}
 \usepackage{algorithm}
-\usepackage{bbm}
 
 % Cheatsheet style
 \input{style.tex}
@@ -371,7 +370,7 @@ I(X;Y) 	 & = h(X) - h(X|Y)\\
 \subsection{Typical Set}
 Entropy typical set: $T^n(\epsilon) = \{\bar{x}: |-\frac{1}{n}\sum_{i=1}^n \log f(x_i) - h(X)| \leq \epsilon\}$
 
-Strong typicality: $|\frac{1}{n} \sum_{i=0}^n \mathbbm{1}\{x_i = x\} - p(x)| \leq \epsilon p(x) \forall x$
+Strong typicality: $|\frac{1}{n} \sum_{i=0}^n \mathbb{I}\{x_i = x\} - p(x)| \leq \epsilon p(x) \forall x$
 
 \subsubsection{Properties}
 \begin{itemize}
