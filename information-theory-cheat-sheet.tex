@@ -455,13 +455,46 @@ Distance: $d_{min} \geq n-(k-1)$ (in fact with equality)
 Are $[2^m, 2^m - m - 1, 4]$ codes. Where the superfluous bits are used as parity bits.
 
 \section{Polar Codes}
-$2I(p) = I(p^-) + I(p^+)$
 
-$I(p^-) \leq I(p) \leq I(p^+)$
+Channels are polarized in the sense that their mutual information is either close to 0 (completely noisy channels) or close to 1 (perfectly noiseless channels).
 
-$(p,p,p,p) \rightarrow (p^{-^-},p^{-^+},p^{+^-},p^{+^+})$
+\subsection{Phase 1: Channel Combining}
 
-$\underbrace{(p,..,p)}_{2^l} \rightarrow \underbrace{(p^{\overbrace{-..-}^l},..,p^{\overbrace{+..+}^l})}_{2^l}$
+\begin{colfig}
+	\centering
+	\includegraphics[width=\linewidth]{polar-basic-scheme.png}
+\end{colfig}
+
+Two seperate channels are combined to create a new vector channel of size 2, which is $W_2: \{0, 1\}^2 \rightarrow \mathcal{Y}^2$. Since the linear transform between $(U_1, U_2)$ and $(X_1, X_2)$ is a one-to-one mapping the following equality holds:
+$$I(U_1, U_2; Y_1, Y_2) = I(X_1, X_2; Y_1, Y_2) = 2I(W)$$
+
+The channel combining for general $N = 2^n$ is done recursively in the following way: $W_N: X_N \rightarrow Y_N$ is defined as:
+\begin{multline*}
+	W_N(Y^N |U^N) = \\
+	W_{N/2}(Y^{N/2}|U_{odd}^N \oplus U_{even}^N) \cdot W_{N/2}(Y_{N/2+1}^{N/2}|U^N_{even})
+\end{multline*}
+
+where $U_{odd}^{N−1} = (u_1, u_3, ..., u_{N−1})$ and $U_{even}^{N−1} = (u_2, u_4, ..., u_N )$ are the even and odd channels from the lower layer. For 8 channels:
+
+\begin{colfig}
+	\centering
+	\includegraphics[width=\linewidth]{polar-eight-inputs.png}
+\end{colfig}
+
+\subsection{Phase 2: Channel Splitting}
+
+In the basic case, N = 2, using chain rule of mutual information suggests that the channel $W_2$ can be split into two channels $W^+$ and $W^-$:
+$$I(U1, U2; Y1, Y2) = I(U1; Y1, Y2) + I(U1; Y1, Y2, U1)$$
+
+$W^- :U_1 \rightarrow (Y_1, Y_2)$
+
+$W^+ :U_2 \rightarrow (Y_1, Y_2, U_1)$
+
+Then we have $2I(W) = I(W^-) + I(W^+)$ and $I(W^-) \leq I(W) \leq I(W^+)$, i.e. the channels are pushed towards the extremes 0 and 1 with respect to $I(W)$ while their sum is still $2I(W)$.
+
+$(W,W,W,W) \rightarrow (W^{-^-},W^{-^+},W^{+^-},W^{+^+})$
+
+$\underbrace{(W,..,W)}_{2^l} \rightarrow \underbrace{(W^{\overbrace{-..-}^l},..,W^{\overbrace{+..+}^l})}_{2^l}$
 
 \textbf{Moderate channel}: there is a function $\mathcal{K}(\delta)$ with $\mathcal{K}(\delta) > 0$, for $0 < \delta \leq \frac{1}{2}$, $\mathcal{K}(0) = 0$, s.t. for any channel $p$,
 $$ I(p) \in (\delta,1-\delta) \Rightarrow I(p^+) - I(p^-) = 2[I(p) - I(p^-)] \geq \mathcal{K}(\delta)$$
