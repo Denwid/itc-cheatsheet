@@ -11,6 +11,7 @@
 \usepackage{todonotes}
 \usepackage{algpseudocode}
 \usepackage{algorithm}
+\usepackage{bbm}
 
 % Cheatsheet style
 \input{style.tex}
@@ -318,15 +319,18 @@ A channel is said to be \emph{weakly symmetric} if every row of the transition m
 $C = \log | \mathcal{Y} | - H(\text{row of transition matrix})$
 and this is achieved by a uniform distribution on the input alphabet.
 
-\section{Differential Entropy}
+\section{Continuous Random Variables}
+\subsection{Differential Entropy}
 \begin{align*}
 h(X) 	& = -\int_\mathbb{X} f(x)\log f(x)\,dx \\
 		& = E[-\log f(X)] 
 \end{align*}
+
 \begin{align*}
 D(f||g) & = \int_\mathbb{X} f(x) \log \frac{f(x)}{g(x)} \, dx \\
 	& = E_f[\log \frac{f(X)}{g(X)}]
 \end{align*}
+
 \begin{align*}
 I(X;Y) 	 & = h(X) - h(X|Y)\\
 		& = h(Y) - h(Y|X)\\
@@ -335,7 +339,7 @@ I(X;Y) 	 & = h(X) - h(X|Y)\\
 \end{align*}
 
 
-\subsection{Examples}
+\subsubsection{Examples}
 \begin{itemize}
 	\item For the uniform distribution $\mathcal{U}[0, a]$:
 	$h(X) = - \int_0^a \frac{1}{a} \log \frac{1}{a} dx = \log a$
@@ -344,7 +348,7 @@ I(X;Y) 	 & = h(X) - h(X|Y)\\
 \end{itemize}
 
 
-\subsection{Properties:}
+\subsubsection{Properties:}
 \begin{itemize}
 	\item General chain rule: $h(X_1, \ldots, X_n) = \sum_{i=1}^{n} h(X_i|X_1, \ldots, X_{i-1}) \leq \sum h(X_i)$
 	\item Translation-Invariant: $h(X + c) = h(X)$
@@ -364,6 +368,16 @@ I(X;Y) 	 & = h(X) - h(X|Y)\\
 	\item $h(\boldsymbol X + \boldsymbol c) = h(\boldsymbol X)$
 \end{itemize}
 
+\subsection{Typical Set}
+Entropy typical set: $T^n(\epsilon) = \{\bar{x}: |-\frac{1}{n}\sum_{i=1}^n \log f(x_i) - h(X)| \leq \epsilon\}$
+
+Strong typicality: $|\frac{1}{n} \sum_{i=0}^n \mathbbm{1}\{x_i = x\} - p(x)| \leq \epsilon p(x) \forall x$
+
+\subsubsection{Properties}
+\begin{itemize}
+ \item $P\left(\bar{x} \in T^n(\epsilon)\right) \rightarrow 1$ as $n \rightarrow \infty$.
+ \item $Vol(T^n(\epsilon)) = 2^{n(h(X)+\delta(\epsilon))}$, where $Vol(A) = \int_\mathbb{A} 1\, d\bar{x}$.
+\end{itemize}
 
 \section{Gaussian Channel}
 $Y_i = X_i + Z_i$ with $Z_i \sim \mathcal{N}(0, \sigma^2)$ and cost constraint $\frac{1}{n}\sum_{i=1}^{n} x_i^2 \leq P$ gives Capacity:
@@ -441,6 +455,23 @@ Distance: $d_{min} \geq n-(k-1)$ (in fact with equality)
 \subsection{Hamming Codes}
 Are $[2^m, 2^m - m - 1, 4]$ codes. Where the superfluous bits are used as parity bits.
 
+\section{Polar Codes}
+$2I(p) = I(p^-) + I(p^+)$
+
+$I(p^-) \leq I(p) \leq I(p^+)$
+
+$(p,p,p,p) \rightarrow (p^{-^-},p^{-^+},p^{+^-},p^{+^+})$
+
+$\underbrace{(p,..,p)}_{2^l} \rightarrow \underbrace{(p^{\overbrace{-..-}^l},..,p^{\overbrace{+..+}^l})}_{2^l}$
+
+\textbf{Moderate channel}: there is a function $\mathcal{K}(\delta)$ with $\mathcal{K}(\delta) > 0$, for $0 < \delta \leq \frac{1}{2}$, $\mathcal{K}(0) = 0$, s.t. for any channel $p$,
+$$ I(p) \in (\delta,1-\delta) \Rightarrow I(p^+) - I(p^-) = 2[I(p) - I(p^-)] \geq \mathcal{K}(\delta)$$
+
+Fraction of good channels is $\approx I(p)$, bad channels is $\approx 1-I(p)$, moderate channels is $\approx 0$.
+
+\textbf{Code construction}: can achieve any rate $R < I(p)$. Encoding complexity is $\frac{n}{2} \log_2 n$ XOR's for blocklength $n$ code. Decoding complexity is $\mathcal{O}(n\log n)$.
+
+
 
 \section{Utilities}
 $\log(x) \leq 1 + x$
@@ -478,6 +509,12 @@ $f(x) = \sup_{i \in I} f_i(x)$ is convex.
 
 $g(x) = h \circ f$ is convex if $f(x)$ is bounded and convex and $h(x)$ is increasing and convex.
 
+\subsection{Kuhn-Tucker}
+Given $f(p_1,..,p_n)$, a concave function, twice differenciable defined on $\mathcal{P} = \{\boldsymbol p \in \mathbb{R}^n : p_i \geq 0, \sum p_i = 1\}$. A point $\boldsymbol p* \in \mathcal{P}$ maximizes $f(\boldsymbol p)$ iff $\exists \lambda$ s.t.
+\begin{align*}
+ \frac{\partial f(\boldsymbol p*)}{\partial p_i} 	& \leq \lambda \, \forall i \\
+							& = \lambda \, \forall i \, s.t. p_i^* > 0
+\end{align*}
 
 \subsection{Hamming distance \& weight}
 Given $\bar{x}, \bar{y}, \bar{z} \in \{0,1\}^n$, the hamming distance is:
