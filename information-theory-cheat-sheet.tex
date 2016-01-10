@@ -430,16 +430,24 @@ $f(x) = \sup_{i \in I} f_i(x)$ is convex.
 $g(x) = h \circ f$ is convex if $f(x)$ is bounded and convex and $h(x)$ is increasing and convex.
 
 
-\subsection{Hamming distance}
-Given $\bar{x}, \bar{y}, \bar{z} \in \{0,1\}^n$:
+\subsection{Hamming distance \& weight}
+Given $\bar{x}, \bar{y}, \bar{z} \in \{0,1\}^n$, the hamming distance is:
+$$d_H(\bar{x},\bar{y}) = \#\{i:y_i \neq x_i\}$$
+
+Given $\bar x$, the hamming weight is the number of 1s:
+$$w_H(\bar{x}) = \#\{i: x_i \neq 0\}$$
+
+\subsubsection{Properties:}
 \begin{itemize}
- \item $d_H(\bar{x},\bar{y}) = \#\{i:y_i \neq x_i\}$
- \item $d_H(\bar{x},\bar{y}) \geq 0$ with equality iff $\bar{x} = \bar{y}$
- \item $d_H(\bar{x},\bar{y}) = d_H(\bar{y},\bar{x})$
- \item $d_H(\bar{x},\bar{z}) \leq d_H(\bar{x},\bar{y}) + d_H(\bar{y},\bar{z})$
- \item Distance is the weight of the sum: $d_H(\bar{x},\bar{y}) = w_H(x + y)$
+	 \item Positive: $d_H(\bar{x},\bar{y}) \geq 0$ with equality iff $\bar{x} = \bar{y}$
+	 \item Symmetric: $d_H(\bar{x},\bar{y}) = d_H(\bar{y},\bar{x})$
+	 \item Triangle inequality: $d_H(\bar{x},\bar{z}) \leq d_H(\bar{x},\bar{y}) + d_H(\bar{y},\bar{z})$
+	 \item Distance is the weight of the sum: $d_H(\bar{x},\bar{y}) = w_H(\bar x + \bar y)$
+	 \item Weight is the distance to 0:
+	 $w_H(\bar x) = d_H(\bar x, \vec 0)$
+	 \item Triangle inequality for the weight:
+	 $w_H(\bar x + \bar y) \leq w_H(\bar x) + w_H(\bar y)$
 \end{itemize}
-Hamming weight: $w_H(\bar{x}) = \#\{i: x_i \neq 0\}$
 
 \end{multicols*}
 \end{document}
