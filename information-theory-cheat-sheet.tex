@@ -202,9 +202,6 @@ The typical set $T_\epsilon$ is the set of sequences $(x_1, x_2, ..., x_n) \in \
 	\EndLoop
 \end{algorithmic}
 
-\subsection{Hamming Code}
-\todo{Fill and maybe move to linear codes}
-
 \section{Source Coding}
 A source code $\code$ for a random variable $X$ is a mapping from the range of X to $D^*$, the set of finite-length strings of symbols from a D-ary alphabet.
 
@@ -354,19 +351,29 @@ Any received vector is normally distributed around the sent codeword and therefo
 
 In general, received vectors can not exceed a magnitude of $\sqrt{n(P + \sigma^2)}$. $\rightarrow$ big sphere. By calculating how many small spheres can fit into a big sphere maximally, we can get an upper bound on how many codewords can be distinguished on the receiver side without overlap.
 $$ M \approx \sqrt{\frac{n(P + \sigma^2)}{n \sigma^2}}^n = \sqrt{2 \log (1 + P/\sigma^2)}^n$$
-This matches $R = \frac{\log M}{n} \leq C$
+This gives $R = \frac{\log M}{n} \leq C$
 
 
 \subsection{Water-filling (k-parallel Gaussian Channels)}
 
 
 \section{Linear Codes}
+The notation $(n,k,d)_q$ describes a block code over an alphabet $\Sigma$ of size $q$, with a block length $n$, message length $k$, and distance $d$.
+If the block code is a linear block code, then the square brackets in the notation $[n,k,d]_q$ are used to represent that fact.
+For binary codes with $q=2$, the index is sometimes dropped.
+For maximum distance separable codes, the distance is always $d=n-k+1$.
+
 \subsection{Binary}
-A code $\mathcal{C}$ is linear if $x,y \in \mathcal{C}$ then $x+y \in \mathcal{C}$, + being the componentwise modulo 2 addition. We have $|\mathcal{C}| = 2^k$ for some $k$.
+A code $\mathcal{C}$ is linear if $x,y \in \mathcal{C}$ then $x+y \in \mathcal{C}$, + being the componentwise modulo 2 addition. The size of the codebook is always a power of two: $|\mathcal{C}| = 2^k$
 
-\textbf{Generator}: a $k \times n$ binary matrix $G$ s.t. $\mathcal{C} = \{[x_1..x_n] = [u_1..u_k]G: (u_1..u_k) \in \{0,1\}^k\}$
+\textbf{Generator}: a $k \times n$ binary matrix $G$ s.t. $\mathcal{C} = \{[x_1..x_n] = [u_1..u_k]G: (u_1..u_k) \in \{0,1\}^k\}$.
+$G = [I_k | - A^T]$
 
-\textbf{Parity-check}: a $n \times k$ binary matrix $H$ s.t. $\mathcal{C} = \{\bar{x}: \bar{x}H = \bar{0}\}$.
+\textbf{Parity-check}: a $n \times k$ binary matrix $H$ s.t. $\mathcal{C} = \{\bar{x}: \bar{x}H = \bar{0}\}$. $H = [A | I_{n-k}]$
+
+$$H G^T = G H^T = 0$$
+
+We send a message $\vec x$ using a codeword $\vec c = \vec x G$ over the channel. The other side will receive a $\vec r = \vec c + (\text{some bits that were flipped } \vec e)$.
 
 Distance: $$d_{min}(\mathcal{C}) = w_{min}(\mathcal{C}) = \min_{\bar{x}\in\mathcal{C}, \bar{x}\neq 0} w_H (\bar{x})$$
 
@@ -382,7 +389,8 @@ Linear code $\mathcal{C} \subset \mathbb{F}^n$ with $|\mathcal{C}| = |\mathbb{F}
 
 Distance: $d_{min} \geq n-(k-1)$
 
-
+\subsection{Hamming Code}
+Are $(2^m, 2^m - m - 1, 4)$ reed-solomon codes.
 
 
 \section{Utilities}
@@ -429,6 +437,7 @@ Given $\bar{x}, \bar{y}, \bar{z} \in \{0,1\}^n$:
  \item $d_H(\bar{x},\bar{y}) \geq 0$ with equality iff $\bar{x} = \bar{y}$
  \item $d_H(\bar{x},\bar{y}) = d_H(\bar{y},\bar{x})$
  \item $d_H(\bar{x},\bar{z}) \leq d_H(\bar{x},\bar{y}) + d_H(\bar{y},\bar{z})$
+ \item Distance is the weight of the sum: $d_H(\bar{x},\bar{y}) = w_H(x + y)$
 \end{itemize}
 Hamming weight: $w_H(\bar{x}) = \#\{i: x_i \neq 0\}$
 
