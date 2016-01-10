@@ -133,10 +133,21 @@ I(U; V) &= H(U) + H(V) - H(U,V)\\
 I(X;Y|Z) 	&= I(X;Y,Z) - I(X;Z)\\
 			&= H(X,Z) + H(Y,Z) - H(X,Y,Z) - H(Z)\\
 			&= H(X|Z) - H(X|Y,Z)\\
-			&= \sum_z p(z) I(X;Y|Z=z)
+			&= \sum_z p(z) I(X;Y|Z=z)\\
+			&= \sum_{y \in Y} \sum_{x \in X} 
+			p(x,y) \log{ \left(\frac{p(x,y)}{p(x)\,p(y)}
+				\right) }
 \end{align*}
-\subsection{Cross-Entropy}
+\subsection{Cross-Entropy, Divergence}
 $$ D(p || q) = \sum_x p(x) \log \frac{p(x)}{q(x)}$$
+
+\subsubsection{Properties}
+\begin{itemize}
+	\item Information inequality / Gibb's inequality: $D(p||q) \geq 0$ with equality iff $p(x) = q(x)$ for all $x$.
+	\item Additive for independent distributions: If $P_1, P_2$ are independent distributions, with the joint distribution $P(x,y) = P_1(x)P_2(y)$, and $Q, Q_1, Q_2$ likewise, then:
+	
+	$$D_{\mathrm{KL}}(P \| Q) = D_{\mathrm{KL}}(P_1 \| Q_1) + D_{\mathrm{KL}}(P_2 \| Q_2)$$
+\end{itemize}
 
 \section{Entropy Rate \& Typical Sets}
 Entropy rate of a stochastic Process $\{X_i\}$ is
@@ -324,8 +335,7 @@ A channel is said to be \emph{weakly symmetric} if every row of the transition m
 $C = \log | \mathcal{Y} | - H(\text{row of transition matrix})$
 and this is achieved by a uniform distribution on the input alphabet.
 
-\section{Continuous Random Variables}
-\subsection{Differential Entropy}
+\section{Differential Entropy}
 \begin{align*}
 h(X) 	& = -\int_\mathbb{X} f(x)\log f(x)\,dx \\
 		& = E[-\log f(X)] 
@@ -383,6 +393,9 @@ Strong typicality: $|\frac{1}{n} \sum_{i=0}^n \mathbb{I}\{x_i = x\} - p(x)| \leq
  \item $P\left(\bar{x} \in T^n(\epsilon)\right) \rightarrow 1$ as $n \rightarrow \infty$.
  \item $Vol(T^n(\epsilon)) = 2^{n(h(X)+\delta(\epsilon))}$, where $Vol(A) = \int_\mathbb{A} 1\, d\bar{x}$.
 \end{itemize}
+
+\vfill
+\columnbreak 
 
 \section{Gaussian Channel}
 $Y_i = X_i + Z_i$ with $Z_i \sim \mathcal{N}(0, \sigma^2)$ and cost constraint $\frac{1}{n}\sum_{i=1}^{n} x_i^2 \leq P$ gives Capacity:
@@ -585,6 +598,8 @@ $$\sum_{k=0}^n r^k = \frac{1-r^{n+1}}{1-r},\, \forall r \in \mathbb{R}-\{1\}$$
 $$\sum_{k=1}^\infty k(k-p)^{k-1} = \frac{1}{p^2}$$
 
 Markov chain: $A-B-C-D$ then $p(a,b,c,d) = p(a)p(b|a)p(c|b)p(d|c)$ and the pairs \{A,C\},\{A,D\} and \{B,D\} are independent.
+
+Union Bound: ${\mathbb P}\biggl(\bigcup_{i} A_i\biggr) \le \sum_i {\mathbb P}(A_i)$
 
 \end{multicols*}
 \end{document}
