@@ -378,8 +378,25 @@ $$ M \approx \sqrt{\frac{n(P + \sigma^2)}{n \sigma^2}}^n = \sqrt{2 \log (1 + P/\
 This gives $R = \frac{\log M}{n} \leq C$
 
 
-\subsection{Water-filling (k-parallel Gaussian Channels)}
+\subsection{Water-filling ($k$ parallel Gaussian Channels)}
+Assume we have a set of $k$ gaussian channels (indexed by $j$) in parallel: $Y_j = X_j + Z_j$ with $Z_j \sim \mathcal{N}(0, \sigma^2_j)$. The noise is assumed independent from channel to channel. There is a common total power constraint: $E[\sum_j^k X_j^2] \leq P$. Then:
 
+\begin{align*}
+	I(\text{every } X_j; \text{every } Y_j) 
+	&\leq \sum_j h(Y_j) + h(Z_j)\\ 
+	&\leq \sum_j \frac{1}{2} \log(1 + P_j/\sigma^2_j)
+\end{align*}
+
+\begin{colfig}
+	\centering
+	\includegraphics[width=\linewidth]{water-filling.png}
+\end{colfig}
+
+With equality (i.e. capacity is achieved) if the $X_j$ are independent Gaussians with variance $P_j$, where the $P_j$ need to be found by water filling. This means finding a $\nu$ that gives the $P_j$s and fulfills the power requirements:
+
+$$P_j = (\nu - N_i)^+ \text{ and } \sum_j (\nu - N_i)^+ = P$$
+
+Where $(x)^+$ is the positive part of x, i.e. 0 if $x < 0$ and $x$ if $x > 0$.
 
 \section{Codes}
 The notation $(n,k,d)_q$ describes a block code over an alphabet $\Sigma$ of size $q$, with a block length $n$, message length $k$, and distance $d$.
