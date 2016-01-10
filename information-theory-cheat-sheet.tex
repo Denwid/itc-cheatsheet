@@ -357,16 +357,16 @@ This gives $R = \frac{\log M}{n} \leq C$
 \subsection{Water-filling (k-parallel Gaussian Channels)}
 
 
-\section{Linear Codes}
+\section{Codes}
 The notation $(n,k,d)_q$ describes a block code over an alphabet $\Sigma$ of size $q$, with a block length $n$, message length $k$, and distance $d$.
 If the block code is a linear block code, then the square brackets in the notation $[n,k,d]_q$ are used to represent that fact.
 For binary codes with $q=2$, the index is sometimes dropped.
 For maximum distance separable codes, the distance is always $d=n-k+1$.
 
-\subsection{Binary}
-A code $\mathcal{C}$ is linear if $x,y \in \mathcal{C}$ then $x+y \in \mathcal{C}$, + being the componentwise modulo 2 addition. The size of the codebook is always a power of two: $|\mathcal{C}| = 2^k$
+\subsection{Linear Codes}
+A code $\mathcal{C} \subseteq \mathbb{F}^n$ is linear if $\forall x,x' \in \mathcal{C}, a,a' \in \mathbb{F}$, $a \cdot x + a' \cdot x' \in \mathcal{C}$, $\cdot$ and $+$ in field $\mathbb{F}$
 
-\textbf{Generator}: a $k \times n$ binary matrix $G$ s.t. $\mathcal{C} = \{[x_1..x_n] = [u_1..u_k]G: (u_1..u_k) \in \{0,1\}^k\}$.
+\textbf{Generator}: a $k \times n$ binary matrix $G$ s.t. $\mathcal{C} = \{[x_1..x_n] = [u_1..u_k]G: (u_1..u_k) \in \{0,1\}^k\}$, i.e. any element of $\mathcal{C}$ is a linear combination of $G$'s rows.
 $G = [I_k | - A^T]$
 
 \textbf{Parity-check}: a $n \times k$ binary matrix $H$ s.t. $\mathcal{C} = \{\bar{x}: \bar{x}H = \bar{0}\}$. $H = [A | I_{n-k}]$
@@ -377,20 +377,28 @@ We send a message $\vec x$ using a codeword $\vec c = \vec x G$ over the channel
 
 Distance: $$d_{min}(\mathcal{C}) = w_{min}(\mathcal{C}) = \min_{\bar{x}\in\mathcal{C}, \bar{x}\neq 0} w_H (\bar{x})$$
 
-\subsection{General $\mathbb{F}$}
-$\mathcal{C} \subseteq \mathbb{F}^n$ is linear if $\forall x,x' \in \mathcal{C}, a,a' \in \mathbb{F}$, $a \cdot x + a' \cdot x' \in \mathcal{C}$, $\cdot$ and $+$ in $\mathbb{F}$
+\subsection{Binary Linear Codes}
+A code $\mathcal{C}$ is a binary linear code if $x,y \in \mathcal{C}$ then $x+y \in \mathcal{C}$ and + being the componentwise modulo 2 addition. The size of the codebook is always a power of two: $|\mathcal{C}| = 2^k$.
+
+\subsubsection{Sphere packing bound}
+Given $d$, we can not have too many codewords:
+$$M \leq \frac{2^n}{\sum_{i=0}^{r = \lfloor \frac{d-1}{2} \rfloor} {n \choose i}} = \frac{|\text{total possible codewords}|}{|\text{codewords within distance $r$}|}$$
+
+\subsubsection{Gilbert-Varshamov for binary codes}
+The maximum possible size $M_{max}$ of a binary code of length $n$ and minimum hamming weight $d$ is
+$$M_{max} \geq \frac{2^n}{\sum_{i=0}^{d-1} {n \choose i}} = \frac{|\text{total possible codewords}|}{|\text{codewords closer than $d-1$}|}$$
 
 \subsection{Reed-Solomon Codes}
 Linear code $\mathcal{C} \subset \mathbb{F}^n$ with $|\mathcal{C}| = |\mathbb{F}|^k$ given $n \leq |\mathbb{F}|$ and $k \leq n$:
 \begin{itemize}
- \item pick $\alpha_1 \in \mathbb{F}, .., \alpha_n \in \mathbb{F}$ s.t. $\alpha_i \neq \alpha_j$ for $i \neq j$:
+ \item pick $n$ distinct alphas in $\mathbb{F}$, call them $\alpha_1 , .., \alpha_n$:
  $\mathcal{C} = \{(x_1,..,x_n) = \left( u(\alpha_1),..,u(\alpha_n)\right) : (u_0 ... u_{k-1}) \in \mathbb{F}^k\}$ with $u(D) = u_0 + u_1D + .. + u_{k-1}D^{k-1}$
 \end{itemize}
 
-Distance: $d_{min} \geq n-(k-1)$
+Distance: $d_{min} \geq n-(k-1)$ (in fact with equality)
 
-\subsection{Hamming Code}
-Are $(2^m, 2^m - m - 1, 4)$ reed-solomon codes.
+\subsection{Hamming Codes}
+Are $[2^m, 2^m - m - 1, 4]$ codes. Where the superfluous bits are used as parity bits.
 
 
 \section{Utilities}
