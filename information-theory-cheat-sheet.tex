@@ -206,7 +206,7 @@ The typical set $T_\epsilon$ is the set of sequences $(x_1, x_2, ..., x_n) \in \
 \section{Source Coding}
 A source code $\code$ for a random variable $X$ is a mapping from the range of X to $D^*$, the set of finite-length strings of symbols from a D-ary alphabet.
 
-Expected length of a source code C(x) for a random variable X with probability mass function p(x) is given by:
+Expected length of a uniquely decodable source code C(x) for a random variable X with probability mass function p(x) is given by:
 $$L(C) = \sum_{x \in \alphabet} p(x) l(x) \geq H(X)$$
 with equality only if $D^{-l_i} = p_i$.
 
@@ -227,6 +227,12 @@ $\code$ prefix free $\implies$ Kraft
 $\code$ uniquely decodable $\implies$ Kraft
 
 $l(u)$ fullfills Kraft $\implies$ $\exists \ \code$, prefix free with $len(\code(u)) = l(u)$
+
+\subsection{Dictionaries}
+A dictionary $\mathcal{D}$ is valid if every source sequence has a prefix in $\mathcal{D}$. It is prefix-free if no dictionary word is a prefix of another.
+
+If $W$ is the first word obtained when parsing an iid source $U_1,U_2,...$ with a valid prefix-free dictionary $\mathcal{D}$, then $$H(W) = E[length(W)]H(U)$$
+$$\frac{\text{nb of bits}}{\text{letter}} \rightarrow \frac{\lceil\log |\mathcal{D}|\rceil}{E[length(W)]}$$
 
 \subsection{Finite state machine}
 A set of states $S$, a starting state, some state transfer function $g: S \times \alphabet \rightarrow S$ and some output function $f: S \times \alphabet \rightarrow \{0,1\}^*$
@@ -473,30 +479,6 @@ Fraction of good channels is $\approx I(p)$, bad channels is $\approx 1-I(p)$, m
 
 
 \section{Utilities}
-$\log(x) \leq 1 + x$
-
-$\lceil x \rceil < 1 + a$
-
-$E[Z] = \sum_{n=0}^{\infty} Pr[Z > n]$
-
-Jensen's inequality for convex functions $f$: $ E[f(X)] \geq f(E[X])$ ($\leq$ for concave)
-
-$a^b = 2^{ b \log a}$
-
-Law of large numbers: $\lim_{n \rightarrow \infty} \frac{1}{n} \sum_{i=1}^n X_i = E[X]$
-
-If a $K$-ary tree has $\alpha$ intermediate nodes, the tree has $1+(K-1)\alpha$ leaves.
-
-
-$\max(f(t) + g(t)) \leq \max(f(t)) + \max(g(t))$
-
-
-$h_2 \left(\frac{1}{L}\sum_{i=1}^L p_i \right) \geq \frac{1}{L} \sum_{i=1}^L h_2(p_i)$
-
-Normal distribution: $f(x \; | \; \mu, \sigma) = \frac{1}{\sigma\sqrt{2\pi} } \; e^{ -\frac{(x-\mu)^2}{2\sigma^2} }$
-
-Integration by parts: $\int u(x) v'(x) \, dx = u(x) v(x) - \int v(x) \, u'(x)  dx$ 
-
 \subsection{Convexity}
 
 $f$ is convex if: $f((1-t)x+ t y)\leq (1-t) f(x)+ t f(y)$
@@ -533,6 +515,43 @@ $$w_H(\bar{x}) = \#\{i: x_i \neq 0\}$$
 	 \item Triangle inequality for the weight:
 	 $w_H(\bar x + \bar y) \leq w_H(\bar x) + w_H(\bar y)$
 \end{itemize}
+
+\subsection{Miscellaneous}
+$\log(x) \leq 1 + x$
+
+$\lceil x \rceil < 1 + a$
+
+$E[Z] = \sum_{n=0}^{\infty} Pr[Z > n]$
+
+Jensen's inequality for convex functions $f$: $ E[f(X)] \geq f(E[X])$ ($\leq$ for concave)
+
+$a^b = 2^{ b \log a}$
+
+Law of large numbers: $\lim_{n \rightarrow \infty} \frac{1}{n} \sum_{i=1}^n X_i = E[X]$
+
+If a $K$-ary tree has $\alpha$ intermediate nodes, the tree has $1+(K-1)\alpha$ leaves.
+
+
+$\max(f(t) + g(t)) \leq \max(f(t)) + \max(g(t))$
+
+
+$h_2 \left(\frac{1}{L}\sum_{i=1}^L p_i \right) \geq \frac{1}{L} \sum_{i=1}^L h_2(p_i)$
+
+Normal distribution: $f(x \; | \; \mu, \sigma) = \frac{1}{\sigma\sqrt{2\pi} } \; e^{ -\frac{(x-\mu)^2}{2\sigma^2} }$
+
+Integration by parts: $\int u(x) v'(x) \, dx = u(x) v(x) - \int v(x) \, u'(x)  dx$ 
+
+Total probabilities: $p(x) = \sum_y p(x,y)$
+
+Bayes: $P(X|Y) = \frac{P(X,Y)}{P(Y)} = \frac{P(Y|X)P(X)}{P(Y)}$
+
+Variance: $Var[X] = E[(X-E[X])^2] = E[X^2] - E[X]^2$
+
+Geometric progressions:
+$$\sum_{k=0}^n r^k = \frac{1-r^{n+1}}{1-r},\, \forall r \in \mathbb{R}-\{1\}$$
+$$\sum_{k=1}^\infty k(k-p)^{k-1} = \frac{1}{p^2}$$
+
+Markov chain: $A-B-C-D$ then $p(a,b,c,d) = p(a)p(b|a)p(c|b)p(d|c)$ and the pairs \{A,C\},\{A,D\} and \{B,D\} are independent.
 
 \end{multicols*}
 \end{document}
